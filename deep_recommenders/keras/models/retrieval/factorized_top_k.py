@@ -23,6 +23,7 @@ def _wrap_batch_too_small_error(k: int):
                              "3. set `handle_incomplete_batches`=True in constructor.".format(k=k))
 
 
+@tf.function
 def _take_long_axis(arr: tf.Tensor, indices: tf.Tensor) -> tf.Tensor:
     """从原始数据arr中，根据indices指定的下标，取出元素
     Args:
@@ -175,6 +176,7 @@ class Streaming(TopK):
 
         return self
 
+    @tf.function
     def call(self,
              queries: Union[tf.Tensor, Dict[Text, tf.Tensor]],
              k: Optional[int] = None,
@@ -352,6 +354,7 @@ class Faiss(TopK):
         self._nprobe = nprobe
         self._normalize = normalize
 
+        @tf.function
         def build_searcher(
                 candidates: Union[np.ndarray, tf.Tensor],
                 identifiers: Optional[Union[np.ndarray, tf.Tensor]] = None,
@@ -427,6 +430,7 @@ class Faiss(TopK):
 
         return self
 
+    @tf.function
     def call(self,
              queries: Union[tf.Tensor, Dict[Text, tf.Tensor]],
              k: Optional[int] = None) -> Tuple[tf.Tensor, tf.Tensor]:
@@ -486,6 +490,7 @@ class FactorizedTopK(tf.keras.layers.Layer):
         self._metrics = metrics
         self._k = k
 
+    @tf.function
     def update_state(self,
                      query_embeddings: tf.Tensor,
                      true_candidate_embeddings: tf.Tensor) -> tf.Operation:

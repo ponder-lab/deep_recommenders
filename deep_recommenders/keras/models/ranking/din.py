@@ -56,6 +56,7 @@ class ActivationUnit(tf.keras.layers.Layer):
         )
         self.built = True
     
+    @tf.function
     def call(self, x_embeddings, y_embeddings=None, **kwargs):
 
         if y_embeddings is None:

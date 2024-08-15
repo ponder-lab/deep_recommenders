@@ -68,6 +68,7 @@ class CIN(tf.keras.layers.Layer):
             )
         self.built = True
         
+    @tf.function
     def call(self, inputs: Tuple[tf.Tensor, tf.Tensor], **kwargs):
 
         x0, x = inputs

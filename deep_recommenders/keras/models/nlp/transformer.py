@@ -188,6 +188,7 @@ class Transformer(Layer):
         ]
         super(Transformer, self).build(input_shape)
         
+    @tf.function
     def encoder(self, inputs):
         if K.dtype(inputs) != 'int32':
             inputs = K.cast(inputs, 'int32')
@@ -220,6 +221,7 @@ class Transformer(Layer):
 
         return encodings, masks
 
+    @tf.function
     def decoder(self, inputs):
         decoder_inputs, encoder_encodings, encoder_masks = inputs
         if K.dtype(decoder_inputs) != 'int32':
@@ -265,6 +267,7 @@ class Transformer(Layer):
         outputs = K.softmax(linear_projection)
         return outputs
 
+    @tf.function
     def call(self, encoder_inputs, decoder_inputs, **kwargs):
         encoder_encodings, encoder_masks = self.encoder(encoder_inputs)
         encoder_outputs = self.decoder([decoder_inputs, encoder_encodings, encoder_masks])
