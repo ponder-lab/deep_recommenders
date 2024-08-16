@@ -1,11 +1,13 @@
 eclipse.preferences.version=1
 encoding//deep_recommenders/estimator/models/ranking/__init__.py=utf-8
 encoding//deep_recommenders/keras/models/nlp/transformer.py=utf-8
+encoding//deep_recommenders/keras/models/ranking/dcn.py=utf-8
 encoding//deep_recommenders/keras/models/ranking/deepfm.py=utf-8
 encoding//deep_recommenders/keras/models/ranking/din.py=utf-8
 encoding//deep_recommenders/keras/models/retrieval/factorized_top_k.py=utf-8
 encoding//examples/train_deepfm_on_movielens_estimator.py=utf-8
 encoding//examples/train_fm_on_movielens_estimator.py=utf-8
 encoding//examples/train_transformer_on_imdb_keras.py=utf-8
+encoding//tests/keras/test_dcn.py=utf-8
 encoding//tests/keras/test_din.py=utf-8
 encoding//tests/keras/test_transformer.py=utf-8
