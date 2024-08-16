@@ -5,6 +5,8 @@ import tensorflow as tf
 
 from deep_recommenders.keras.models.nlp import Transformer
 
+from scripts.utils import write_csv
+import timeit
 
 def load_dataset(vocab_size, max_len):
     (x_train, y_train), (x_test, y_test) = tf.keras.datasets.imdb.load_data(maxlen=max_len, num_words=vocab_size)
@@ -34,6 +36,8 @@ def build_model(vocab_size, max_len, model_dim=8, n_heads=2, encoder_stack=2, de
 
 
 def train_model(vocab_size=5000, max_len=128, batch_size=128, epochs=10):
+    start_time = timeit.default_timer()
+    skipped_time = 0
 
     train, test = load_dataset(vocab_size, max_len)
 
@@ -50,6 +54,11 @@ def train_model(vocab_size=5000, max_len=128, batch_size=128, epochs=10):
               batch_size=batch_size, epochs=epochs, validation_split=0.2, callbacks=[es])
 
     test_metrics = model.evaluate([x_test, x_test_masks], y_test, batch_size=batch_size, verbose=0)
+
+    time = timeit.default_timer() - start_time - skipped_time
+
+    write_csv(__file__, epochs, float(test_metrics[1]), float(test_metrics[0]), time)
+
     print("loss on Test: %.4f" % test_metrics[0])
     print("accu on Test: %.4f" % test_metrics[1])
 
