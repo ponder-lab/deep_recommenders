@@ -10,6 +10,17 @@ import tensorflow as tf
 
 from deep_recommenders.keras.models.nlp import Transformer
 
+from scripts.utils import write_csv
+import timeit
+
+start_time = timeit.default_timer()
+skipped_time = 0
+
+total_loss = 0
+loss_count = 0
+
+total_accuracy = 0
+accuracy_count = 0
 
 class TestTransformer(tf.test.TestCase):
 
@@ -42,6 +53,12 @@ class TestTransformer(tf.test.TestCase):
             assert model.layers[i].get_config() == loaded_model.layers[i].get_config()
         self.assertAllClose(model_pred, loaded_pred)
 
+        time = timeit.default_timer() - start_time - skipped_time
+        avg_loss = None
+        avg_accuracy = None
+        epoch_count = None
+
+        write_csv(__file__, epoch_count, avg_accuracy, avg_loss, time)
 
 if __name__ == '__main__':
     tf.test.main()
