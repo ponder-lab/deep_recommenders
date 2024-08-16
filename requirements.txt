@@ -1,4 +1,6 @@
-numpy==1.20.1
-scipy==1.7.1
-faiss-cpu==1.6.3
-absl-py==0.13.0
+numpy==1.23.5
+scipy==1.14.0
+faiss_cpu==1.8.0.post1
+absl_py==2.1.0
+Requests==2.32.3
+tensorflow==2.9.3
