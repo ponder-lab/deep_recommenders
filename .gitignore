@@ -9,4 +9,4 @@ env
 .idea
 data
 logs
-*.tfrecords
+cora/
