@@ -7,6 +7,8 @@ import tensorflow as tf
 from deep_recommenders.datasets import MovielensRanking
 from deep_recommenders.keras.models.ranking import DeepFM
 
+from scripts.utils import write_csv
+import timeit
 
 def build_columns():
     movielens = MovielensRanking()
@@ -39,20 +41,27 @@ def main():
     movielens = MovielensRanking()
     indicator_columns, embedding_columns = build_columns()
 
+    start_time = timeit.default_timer()
+    skipped_time = 0
+
     model = DeepFM(indicator_columns, embedding_columns, dnn_units_size=[256, 32])
     model.compile(loss=tf.keras.losses.binary_crossentropy,
                   optimizer=tf.keras.optimizers.Adam(),
                   metrics=[tf.keras.metrics.AUC(),
                            tf.keras.metrics.Precision(),
                            tf.keras.metrics.Recall()])
+    epochs = 10
 
     model.fit(movielens.training_input_fn,
-              epochs=10,
+              epochs=epochs,
               steps_per_epoch=movielens.train_steps_per_epoch,
               validation_data=movielens.testing_input_fn,
               validation_steps=movielens.test_steps,
               callbacks=[tf.keras.callbacks.EarlyStopping(patience=3)])
 
+    time = timeit.default_timer() - start_time - skipped_time
+
+    write_csv(__file__, epochs, time=time)
 
 if __name__ == '__main__':
     main()
