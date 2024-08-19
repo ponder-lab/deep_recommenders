@@ -1,5 +1,8 @@
 #!/bin/bash
+set -ex
 
 PYTHON="/usr/local/bin/python3.10"
 
-$PYTHON deep_recommenders/datasets/movielens.py
+pushd deep_recommenders/datasets
+$PYTHON movielens.py
+popd
