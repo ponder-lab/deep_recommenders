@@ -20,5 +20,6 @@ encoding//tests/keras/test_deepfm.py=utf-8
 encoding//tests/keras/test_din.py=utf-8
 encoding//tests/keras/test_factorized_top_k.py=utf-8
 encoding//tests/keras/test_fm.py=utf-8
+encoding//tests/keras/test_gcn.py=utf-8
 encoding//tests/keras/test_transformer.py=utf-8
 encoding//tests/keras/test_xdeepfm.py=utf-8
