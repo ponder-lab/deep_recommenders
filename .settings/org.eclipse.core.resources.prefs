@@ -1,4 +1,5 @@
 eclipse.preferences.version=1
+encoding//deep_recommenders/estimator/models/feature_interaction/fm.py=utf-8
 encoding//deep_recommenders/estimator/models/ranking/__init__.py=utf-8
 encoding//deep_recommenders/estimator/models/ranking/deepfm.py=utf-8
 encoding//deep_recommenders/keras/models/nlp/transformer.py=utf-8
