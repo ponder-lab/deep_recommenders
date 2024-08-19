@@ -10,6 +10,8 @@ from deep_recommenders.keras.models.ranking import DeepFM
 from scripts.utils import write_csv
 import timeit
 
+import numpy as np
+
 def build_columns():
     movielens = MovielensRanking()
     user_id = tf.feature_column.categorical_column_with_hash_bucket(
@@ -52,16 +54,18 @@ def main():
                            tf.keras.metrics.Recall()])
     epochs = 10
 
-    model.fit(movielens.training_input_fn,
+    res = model.fit(movielens.training_input_fn,
               epochs=epochs,
               steps_per_epoch=movielens.train_steps_per_epoch,
               validation_data=movielens.testing_input_fn,
               validation_steps=movielens.test_steps,
               callbacks=[tf.keras.callbacks.EarlyStopping(patience=3)])
 
+    avg_loss = np.array(res.history['loss']).mean()
+
     time = timeit.default_timer() - start_time - skipped_time
 
-    write_csv(__file__, epochs, time=time)
+    write_csv(__file__, epochs, loss=float(avg_loss), time=time)
 
 if __name__ == '__main__':
     main()
