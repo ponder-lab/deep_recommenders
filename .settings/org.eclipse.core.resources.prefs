@@ -13,6 +13,7 @@ encoding//examples/train_deepfm_on_movielens_keras.py=utf-8
 encoding//examples/train_fm_on_movielens_estimator.py=utf-8
 encoding//examples/train_transformer_on_imdb_keras.py=utf-8
 encoding//tests/keras/test_dcn.py=utf-8
+encoding//tests/keras/test_deepfm.py=utf-8
 encoding//tests/keras/test_din.py=utf-8
 encoding//tests/keras/test_fm.py=utf-8
 encoding//tests/keras/test_transformer.py=utf-8
