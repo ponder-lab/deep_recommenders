@@ -108,6 +108,7 @@ class Dice(tf.keras.layers.Layer):
         )
         self.built = True
 
+    @tf.function
     def call(self, inputs, **kwargs):
         
         inputs_mean = tf.math.reduce_mean(inputs, axis=1, keepdims=True)

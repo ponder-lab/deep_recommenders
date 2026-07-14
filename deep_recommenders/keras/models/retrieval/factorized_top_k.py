@@ -200,6 +200,7 @@ class Streaming(TopK):
         # 重置计数器
         self._counter.assign(0)
 
+        @tf.function
         def top_scores(candidate_index: tf.Tensor,
                        candidate_batch: tf.Tensor) -> Tuple[tf.Tensor, tf.Tensor]:
             """计算一个batch的候选集中的topK的scores和indices"""
@@ -243,6 +244,7 @@ class Streaming(TopK):
         initial_state = (tf.zeros((tf.shape(queries)[0], 0), dtype=tf.float32),
                          tf.zeros((tf.shape(queries)[0], 0), dtype=index_dtype))
         
+        @tf.function
         def enumerate_rows(batch: tf.Tensor) -> Tuple[tf.Tensor, tf.Tensor]:
             """Enumerates rows in each batch using a total element counter."""
             starting_counter = self._counter.read_value()
@@ -354,7 +356,6 @@ class Faiss(TopK):
         self._nprobe = nprobe
         self._normalize = normalize
 
-        @tf.function
         def build_searcher(
                 candidates: Union[np.ndarray, tf.Tensor],
                 identifiers: Optional[Union[np.ndarray, tf.Tensor]] = None,

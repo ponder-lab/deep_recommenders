@@ -16,6 +16,7 @@ class PositionEncoding(Layer):
         self._model_dim = model_dim
         super(PositionEncoding, self).__init__(**kwargs)
 
+    @tf.function
     def call(self, inputs, **kwargs):
         seq_length = inputs.shape[1]
         position_encodings = np.zeros((seq_length, self._model_dim))
