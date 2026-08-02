@@ -78,6 +78,7 @@ class PositionWiseFeedForward(Layer):
             name="bias_out")
         super(PositionWiseFeedForward, self).build(input_shape)
 
+    @tf.function
     def call(self, inputs, **kwargs):
         if K.dtype(inputs) != 'float32':
             inputs = K.cast(inputs, 'float32')
@@ -107,6 +108,7 @@ class LayerNormalization(Layer):
             name='gamma')
         super(LayerNormalization, self).build(input_shape)
 
+    @tf.function
     def call(self, inputs, **kwargs):
         mean, variance = tf.nn.moments(inputs, [-1], keepdims=True)
         normalized = (inputs - mean) / ((variance + self._epsilon) ** 0.5)
