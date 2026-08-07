@@ -40,6 +40,7 @@ class GCN(tf.keras.layers.Layer):
         )
         self.built = True
 
+    @tf.function(input_signature=[tf.TensorSpec(shape=None, dtype=tf.float32), tf.TensorSpec(shape=None, dtype=tf.float32)])
     def call(self, features, adj, **kwargs):
 
         if isinstance(adj, tf.SparseTensor):

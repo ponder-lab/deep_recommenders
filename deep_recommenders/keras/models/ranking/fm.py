@@ -20,6 +20,7 @@ class FM(tf.keras.layers.Layer):
         )
         self.built = True
 
+    @tf.function(input_signature=[tf.TensorSpec(shape=None, dtype=tf.float32), tf.TensorSpec(shape=(None, 5, 5), dtype=tf.float32)])
     def call(self, sparse_inputs, embedding_inputs=None, **kwargs):
 
         if embedding_inputs is None:

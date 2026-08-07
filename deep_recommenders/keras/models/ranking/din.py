@@ -56,6 +56,7 @@ class ActivationUnit(tf.keras.layers.Layer):
         )
         self.built = True
     
+    @tf.function
     def call(self, x_embeddings, y_embeddings=None, **kwargs):
 
         if y_embeddings is None:
@@ -107,6 +108,7 @@ class Dice(tf.keras.layers.Layer):
         )
         self.built = True
 
+    @tf.function(input_signature=[tf.TensorSpec(shape=None, dtype=tf.float32)])
     def call(self, inputs, **kwargs):
         
         inputs_mean = tf.math.reduce_mean(inputs, axis=1, keepdims=True)

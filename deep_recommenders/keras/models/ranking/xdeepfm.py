@@ -68,6 +68,7 @@ class CIN(tf.keras.layers.Layer):
             )
         self.built = True
         
+    @tf.function(input_signature=[tf.TensorSpec(shape=(2, 3, 5), dtype=tf.float32)])
     def call(self, inputs: Tuple[tf.Tensor, tf.Tensor], **kwargs):
 
         x0, x = inputs
