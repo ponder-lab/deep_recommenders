@@ -67,6 +67,7 @@ class Cross(tf.keras.layers.Layer):
             )
         super(Cross, self).build(input_shape)
 
+    @tf.function
     def call(self, x0, x=None, **kwargs):
 
         if x is None:
