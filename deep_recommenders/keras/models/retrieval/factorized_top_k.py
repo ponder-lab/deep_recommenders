@@ -23,6 +23,7 @@ def _wrap_batch_too_small_error(k: int):
                              "3. set `handle_incomplete_batches`=True in constructor.".format(k=k))
 
 
+@tf.function
 def _take_long_axis(arr: tf.Tensor, indices: tf.Tensor) -> tf.Tensor:
     """从原始数据arr中，根据indices指定的下标，取出元素
     Args:
@@ -175,6 +176,7 @@ class Streaming(TopK):
 
         return self
 
+    @tf.function
     def call(self,
              queries: Union[tf.Tensor, Dict[Text, tf.Tensor]],
              k: Optional[int] = None,
@@ -198,6 +200,7 @@ class Streaming(TopK):
         # 重置计数器
         self._counter.assign(0)
 
+        @tf.function
         def top_scores(candidate_index: tf.Tensor,
                        candidate_batch: tf.Tensor) -> Tuple[tf.Tensor, tf.Tensor]:
             """计算一个batch的候选集中的topK的scores和indices"""
@@ -241,6 +244,7 @@ class Streaming(TopK):
         initial_state = (tf.zeros((tf.shape(queries)[0], 0), dtype=tf.float32),
                          tf.zeros((tf.shape(queries)[0], 0), dtype=index_dtype))
         
+        @tf.function
         def enumerate_rows(batch: tf.Tensor) -> Tuple[tf.Tensor, tf.Tensor]:
             """Enumerates rows in each batch using a total element counter."""
             starting_counter = self._counter.read_value()
@@ -427,6 +431,7 @@ class Faiss(TopK):
 
         return self
 
+    @tf.function
     def call(self,
              queries: Union[tf.Tensor, Dict[Text, tf.Tensor]],
              k: Optional[int] = None) -> Tuple[tf.Tensor, tf.Tensor]:
@@ -486,6 +491,7 @@ class FactorizedTopK(tf.keras.layers.Layer):
         self._metrics = metrics
         self._k = k
 
+    @tf.function
     def update_state(self,
                      query_embeddings: tf.Tensor,
                      true_candidate_embeddings: tf.Tensor) -> tf.Operation:
