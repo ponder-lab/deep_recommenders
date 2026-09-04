@@ -40,6 +40,7 @@ class GCN(tf.keras.layers.Layer):
         )
         self.built = True
 
+    @tf.function
     def call(self, features, adj, **kwargs):
 
         if isinstance(adj, tf.SparseTensor):
