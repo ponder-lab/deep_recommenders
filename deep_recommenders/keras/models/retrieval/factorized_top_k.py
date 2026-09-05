@@ -317,6 +317,7 @@ class BruteForce(TopK):
         self._reset_tf_function_cache()
         return self
 
+    @tf.function
     def call(self,
              queries: Union[tf.Tensor, Dict[Text, tf.Tensor]],
              k: Optional[int] = None,
@@ -491,7 +492,6 @@ class FactorizedTopK(tf.keras.layers.Layer):
         self._metrics = metrics
         self._k = k
 
-    @tf.function
     def update_state(self,
                      query_embeddings: tf.Tensor,
                      true_candidate_embeddings: tf.Tensor) -> tf.Operation:
