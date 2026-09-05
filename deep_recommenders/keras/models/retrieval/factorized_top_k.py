@@ -317,6 +317,7 @@ class BruteForce(TopK):
         self._reset_tf_function_cache()
         return self
 
+    @tf.function
     def call(self,
              queries: Union[tf.Tensor, Dict[Text, tf.Tensor]],
              k: Optional[int] = None,
@@ -431,7 +432,7 @@ class Faiss(TopK):
 
         return self
 
-    @tf.function(input_signature=[tf.TensorSpec(shape=None, dtype=tf.float32)])
+    @tf.function
     def call(self,
              queries: Union[tf.Tensor, Dict[Text, tf.Tensor]],
              k: Optional[int] = None) -> Tuple[tf.Tensor, tf.Tensor]:
@@ -491,7 +492,6 @@ class FactorizedTopK(tf.keras.layers.Layer):
         self._metrics = metrics
         self._k = k
 
-    @tf.function(input_signature=[tf.TensorSpec(shape=None, dtype=tf.float32), tf.TensorSpec(shape=None, dtype=tf.float32)])
     def update_state(self,
                      query_embeddings: tf.Tensor,
                      true_candidate_embeddings: tf.Tensor) -> tf.Operation:
