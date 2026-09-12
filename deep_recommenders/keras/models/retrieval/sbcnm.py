@@ -12,7 +12,7 @@ MIN_FLOAT = np.finfo(np.float32).min / 100.0
 from deep_recommenders.keras.models.retrieval import FactorizedTopK
 
 
-@tf.function(input_signature=[tf.TensorSpec(shape=None, dtype=tf.float32), tf.TensorSpec(shape=None, dtype=tf.int32)])
+@tf.function(input_signature=[tf.TensorSpec(shape=(2, 20), dtype=tf.float32), tf.TensorSpec(shape=None, dtype=tf.int32)])
 def _gather_elements_along_row(data: tf.Tensor,
                                column_indices: tf.Tensor) -> tf.Tensor:
     """与factorized_top_k中_take_long_axis相同"""
@@ -39,7 +39,7 @@ class HardNegativeMining(tf.keras.layers.Layer):
 
         self._num_hard_negatives = num_hard_negatives
 
-    @tf.function(input_signature=[tf.TensorSpec(shape=None, dtype=tf.float32), tf.TensorSpec(shape=None, dtype=tf.float32)])
+    @tf.function(input_signature=[tf.TensorSpec(shape=(2, 20), dtype=tf.float32), tf.TensorSpec(shape=(2, 20), dtype=tf.float32)])
     def call(self, logits: tf.Tensor, labels: tf.Tensor) -> Tuple[tf.Tensor, tf.Tensor]:
         num_sampled = tf.minimum(self._num_hard_negatives + 1, tf.shape(logits)[1])
 
