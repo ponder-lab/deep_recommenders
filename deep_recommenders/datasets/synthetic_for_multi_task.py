@@ -52,6 +52,7 @@ class SyntheticForMultiTask(object):
                                    p=self._p,
                                    m=self._m)
 
+        @tf.function
         def _parse_example(features, labels):
             feature_columns = tf.split(features, self._example_dim, axis=1)
             features = {"C{}".format(i): col for i, col in enumerate(feature_columns)}
