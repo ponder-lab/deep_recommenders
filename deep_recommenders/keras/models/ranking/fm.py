@@ -20,6 +20,7 @@ class FM(tf.keras.layers.Layer):
         )
         self.built = True
 
+    @tf.function
     def call(self, sparse_inputs, embedding_inputs=None, **kwargs):
 
         if embedding_inputs is None:
