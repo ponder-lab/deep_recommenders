@@ -113,6 +113,7 @@ class MovieLens(object):
 
     def dataset(self, epochs=1, batch_size=256):
 
+        @tf.function
         def _parse_example(serialized_example):
             features = {}
             for c in ["Age", "Occupation", "Rating", "Timestamp"]:
