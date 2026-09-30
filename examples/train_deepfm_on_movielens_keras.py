@@ -52,7 +52,7 @@ def main():
                   metrics=[tf.keras.metrics.AUC(),
                            tf.keras.metrics.Precision(),
                            tf.keras.metrics.Recall()])
-    epochs = 10
+    epochs = 3
 
     res = model.fit(movielens.training_input_fn,
               epochs=epochs,
