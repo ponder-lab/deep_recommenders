@@ -59,7 +59,8 @@ def main():
               steps_per_epoch=movielens.train_steps_per_epoch,
               validation_data=movielens.testing_input_fn,
               validation_steps=movielens.test_steps,
-              callbacks=[tf.keras.callbacks.EarlyStopping(patience=3)])
+              callbacks=[tf.keras.callbacks.EarlyStopping(patience=3)],
+              verbose=0)
 
     avg_loss = np.array(res.history['loss']).mean()
 
