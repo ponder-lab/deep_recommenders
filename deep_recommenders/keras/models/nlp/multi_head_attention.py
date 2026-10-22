@@ -42,6 +42,7 @@ class ScaledDotProductAttention(tf.keras.layers.Layer):
         self._masking_num = -2**32+1
         super(ScaledDotProductAttention, self).__init__(**kwargs)
 
+    @tf.function
     def mask(self, inputs, masks):
         masks = K.cast(masks, 'float32')
         masks = K.tile(masks, [K.shape(inputs)[0] // K.shape(masks)[0], 1])
@@ -57,6 +58,7 @@ class ScaledDotProductAttention(tf.keras.layers.Layer):
         outputs = tf.where(tf.equal(future_masks, 0), paddings, inputs)
         return outputs
 
+    @tf.function
     def call(self, inputs, **kwargs):
         if self._masking:
             assert len(inputs) == 4, "inputs should be set [queries, keys, values, masks]."
@@ -119,6 +121,7 @@ class MultiHeadAttention(tf.keras.layers.Layer):
             name='weights_values')
         super(MultiHeadAttention, self).build(input_shape)
 
+    @tf.function
     def call(self, inputs, **kwargs):
         if self._masking:
             assert len(inputs) == 4, "inputs should be set [queries, keys, values, masks]."
