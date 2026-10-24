@@ -53,7 +53,7 @@ class HardNegativeMining(tf.keras.layers.Layer):
 
 class RemoveAccidentalNegative(tf.keras.layers.Layer):
 
-    @tf.function(input_signature=[tf.TensorSpec(shape=(2, 4), dtype=tf.float32), tf.TensorSpec(shape=(2, 4), dtype=tf.float32), tf.TensorSpec(shape=None, dtype=tf.int64)])
+    @tf.function(input_signature=[tf.TensorSpec(shape=(2, 4), dtype=tf.float32), tf.TensorSpec(shape=(2, 4), dtype=tf.float32), tf.TensorSpec(shape=(4,), dtype=tf.int64)])
     def call(self,
              logits: tf.Tensor,
              labels: tf.Tensor,

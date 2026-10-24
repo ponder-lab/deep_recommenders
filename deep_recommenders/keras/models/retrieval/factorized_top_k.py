@@ -176,7 +176,6 @@ class Streaming(TopK):
 
         return self
 
-    @tf.function
     def call(self,
              queries: Union[tf.Tensor, Dict[Text, tf.Tensor]],
              k: Optional[int] = None,
