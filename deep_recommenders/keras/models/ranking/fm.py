@@ -52,6 +52,7 @@ class FactorizationMachine(tf.keras.Model):
         }
         self._kernel = FM()
 
+    @tf.function
     def call(self, inputs, training=None, mask=None):
         sparse_features = self._sparse_features_layer(inputs)
         embeddings = []
