@@ -23,6 +23,7 @@ def _wrap_batch_too_small_error(k: int):
                              "3. set `handle_incomplete_batches`=True in constructor.".format(k=k))
 
 
+@tf.function
 def _take_long_axis(arr: tf.Tensor, indices: tf.Tensor) -> tf.Tensor:
     """从原始数据arr中，根据indices指定的下标，取出元素
     Args:
@@ -41,6 +42,7 @@ def _take_long_axis(arr: tf.Tensor, indices: tf.Tensor) -> tf.Tensor:
     return tf.reshape(tf.gather_nd(arr, gather_indices), tf.shape(indices))
 
 
+@tf.function
 def _exclude(scores: tf.Tensor, 
              identifiers: tf.Tensor, 
              exclude: tf.Tensor, 
@@ -198,6 +200,7 @@ class Streaming(TopK):
         # 重置计数器
         self._counter.assign(0)
 
+        @tf.function
         def top_scores(candidate_index: tf.Tensor,
                        candidate_batch: tf.Tensor) -> Tuple[tf.Tensor, tf.Tensor]:
             """计算一个batch的候选集中的topK的scores和indices"""
@@ -241,6 +244,7 @@ class Streaming(TopK):
         initial_state = (tf.zeros((tf.shape(queries)[0], 0), dtype=tf.float32),
                          tf.zeros((tf.shape(queries)[0], 0), dtype=index_dtype))
         
+        @tf.function(input_signature=[tf.TensorSpec(shape=(None, 4), dtype=tf.float32)])
         def enumerate_rows(batch: tf.Tensor) -> Tuple[tf.Tensor, tf.Tensor]:
             """Enumerates rows in each batch using a total element counter."""
             starting_counter = self._counter.read_value()
