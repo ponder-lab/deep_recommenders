@@ -20,6 +20,7 @@ class FM(tf.keras.layers.Layer):
         )
         self.built = True
 
+    @tf.function
     def call(self, sparse_inputs, embedding_inputs=None, **kwargs):
 
         if embedding_inputs is None:
@@ -51,6 +52,7 @@ class FactorizationMachine(tf.keras.Model):
         }
         self._kernel = FM()
 
+    @tf.function
     def call(self, inputs, training=None, mask=None):
         sparse_features = self._sparse_features_layer(inputs)
         embeddings = []
