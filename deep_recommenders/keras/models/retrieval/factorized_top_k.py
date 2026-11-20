@@ -42,6 +42,7 @@ def _take_long_axis(arr: tf.Tensor, indices: tf.Tensor) -> tf.Tensor:
     return tf.reshape(tf.gather_nd(arr, gather_indices), tf.shape(indices))
 
 
+@tf.function
 def _exclude(scores: tf.Tensor, 
              identifiers: tf.Tensor, 
              exclude: tf.Tensor, 
@@ -316,7 +317,6 @@ class BruteForce(TopK):
         self._reset_tf_function_cache()
         return self
 
-    @tf.function
     def call(self,
              queries: Union[tf.Tensor, Dict[Text, tf.Tensor]],
              k: Optional[int] = None,
@@ -431,7 +431,6 @@ class Faiss(TopK):
 
         return self
 
-    @tf.function
     def call(self,
              queries: Union[tf.Tensor, Dict[Text, tf.Tensor]],
              k: Optional[int] = None) -> Tuple[tf.Tensor, tf.Tensor]:
