@@ -33,6 +33,7 @@ class DeepFM(tf.keras.Model):
             ] + [tf.keras.layers.Dense(1)]
         )
 
+    @tf.function
     def call(self, inputs, **kwargs):
         sparse_features = self._sparse_features_layer(inputs)
         embeddings = []
